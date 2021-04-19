@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader'
+require_relative 'lib/bookmark_manager'
 
 
 class BM < Sinatra::Base
@@ -8,7 +9,12 @@ class BM < Sinatra::Base
   end
 
   get '/' do
-    "it's working :D"
+    redirect '/bookmark'
+  end
+
+  get '/bookmark' do
+    @bookmarks = BookmarkManager.all
+    erb(:bookmark)
   end
 
 
