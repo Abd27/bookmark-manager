@@ -1,10 +1,6 @@
 require 'bookmark_manager'
 
 describe BookmarkManager do
-  xit 'have all bookmarks' do
-    subject = described_class
-    expect(subject.all).to include('https://www.youtube.com/')
-  end
   describe '.all' do
     it 'returns a list of bookmarks' do
       connection = PG.connect(dbname: 'bookmark_manager_test')
@@ -19,6 +15,14 @@ describe BookmarkManager do
       expect(bookmarks).to include('http://www.makersacademy.com')
       expect(bookmarks).to include('http://www.destroyallsoftware.com')
       expect(bookmarks).to include('http://www.google.com')
+    end
+  end
+
+  describe '.save_bookmark' do
+    it 'will add the bookmark to database' do
+      BookmarkManager.all
+      BookmarkManager.save_bookmark('http://www.github.com')
+      expect(BookmarkManager.all).to include('http://www.github.com')
     end
   end
 end

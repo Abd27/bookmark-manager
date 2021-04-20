@@ -1,6 +1,9 @@
 <h2> Bookmark Manager </h2
 ><br>
-
+<form action='/save-bookmark' method='post'>
+  <input type='text' name='add_bookmark'>
+  <input type='submit' value='Add'>
+</form>  
 <% @bookmarks.each do |bookmark| %>
   <li> <%= bookmark %>
 <% end %> 
