@@ -1,19 +1,26 @@
 require 'pg'
 class BookmarkManager
-  @connection
-  def self.all  
+  attr_reader :url, :title, :id
+  
+  def initialize(url, title, id)
+    @url = url
+    @title = title
+    @id = id
+  end  
+
+  def self.all
     if ENV['RACK_ENV'] == 'test'
       @connection = PG.connect(dbname: 'bookmark_manager_test')
     else
       @connection = PG.connect(dbname: 'bookmark_manager')
     end
-    # connection = PG.connect(dbname: 'bookmark_manager')
     result = @connection.exec('SELECT * FROM bookmarks')
-    result.map { |bookmark| bookmark['url'] }
+    result.map { |bookmark| BookmarkManager.new(bookmark['url'], bookmark['title'], bookmark['id']) }
   end
 
-  def self.save_bookmark(bookmark)
-    @connection.exec("INSERT INTO bookmarks (url) VALUES('#{bookmark}')")
+  def self.save_bookmark(title, url)
+    # connect_to_database
+    @connection.exec("INSERT INTO bookmarks (title,url) VALUES('#{title}', '#{url}')")
   end  
- # ALTER TABLE bookmark_manager ADD #{bookmark} VARCHAR(225)
+  
 end

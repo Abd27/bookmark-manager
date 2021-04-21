@@ -8,15 +8,15 @@ class BM < Sinatra::Base
     register Sinatra::Reloader
   end
 
-
   get '/' do
     @bookmarks = BookmarkManager.all
     erb(:bookmark)
   end
 
   post '/save-bookmark' do
-    p params
-    BookmarkManager.save_bookmark(params[:add_bookmark])
+
+    BookmarkManager.all
+    BookmarkManager.save_bookmark(params[:title], params[:add_bookmark],)
     redirect '/'
   end
 

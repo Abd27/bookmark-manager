@@ -5,16 +5,19 @@ feature "bookmark-manager" do
   end
 
   scenario 'display some bookmarks' do
-    connection = PG.connect(dbname: 'bookmark_manager_test')
-  
+    
+   
     # Add the test data
-    connection.exec("INSERT INTO bookmarks (url) VALUES ('https://www.youtube.com/');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES('https://www.freecodecamp.org/');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES('https://www.gov.uk/');")
-  
+    BookmarkManager.save_bookmark('Youtube', 'https://www.youtube.com/')
+    BookmarkManager.save_bookmark('FreeCodeCamp', 'https://www.freecodecamp.org/')
+    BookmarkManager.save_bookmark('Gov', 'https://www.gov.uk/')
+    BookmarkManager.save_bookmark('www', 'https://www')
     visit '/'
-    expect(page).to have_content('https://www.youtube.com/')
-    expect(page).to have_content('https://www.freecodecamp.org/')
-    expect(page).to have_content('https://www.gov.uk/')
+    
+    expect(page).to have_link('Youtube', href: 'https://www.youtube.com/')
+    expect(page).to have_link('FreeCodeCamp', href: 'https://www.freecodecamp.org/')
+    expect(page).to have_link('Gov', href: 'https://www.gov.uk/')
+    expect(page).to have_link('www', href: 'https://www')
+
   end
 end
