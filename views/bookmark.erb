@@ -11,6 +11,9 @@
     <li>
       <a href="<%= bookmark.url %>">
         <%= bookmark.title %>
+        <form action="/bookmarks/<%= bookmark.id %>/update" method="get">
+          <input type="submit" name='<%=bookmark.title%>_update' value="Update" />
+        </form>
         <form action="/bookmarks/<%= bookmark.id %>" method='post'>
           <input type='hidden' name='_method' value='DELETE'>
           <input type='submit' name='<%=bookmark.title%>_delete' value='Delete'>

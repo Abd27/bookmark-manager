@@ -19,12 +19,15 @@ class BookmarkManager
   end
 
   def self.save_bookmark(title, url)
-    # connect_to_database
     @connection.exec("INSERT INTO bookmarks (title,url) VALUES('#{title}', '#{url}')")
   end  
 
   def self.delete(id)
     @connection.exec("DELETE FROM bookmarks WHERE id = #{id}")
+  end  
+
+  def self.update(title, url, id)
+    @connection.exec("UPDATE bookmarks SET url = '#{url}', title = '#{title}' WHERE id = #{id};")
   end  
   
 end

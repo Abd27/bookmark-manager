@@ -3,7 +3,6 @@ require 'bookmark_manager'
 describe BookmarkManager do
   describe '.all' do
     it 'returns a list of bookmarks' do
-      # connection = PG.connect(dbname: 'bookmark_manager_test')
       BookmarkManager.all
       # Add the test data
       BookmarkManager.save_bookmark("Makers Academy", "http://www.makersacademy.com" )
@@ -34,6 +33,16 @@ describe BookmarkManager do
       id = described_class.all[0].id
       BookmarkManager.delete(id)
       expect(BookmarkManager.all).to be_empty
+    end
+  end
+
+  describe '.update' do
+    it 'deletes bookmark' do
+      BookmarkManager.all
+      BookmarkManager.save_bookmark('New URL', 'http://bookmarked-url.co.gb')
+      id = described_class.all[0].id
+      BookmarkManager.update('Changed', 'http://www.changed.com', id )
+      expect(BookmarkManager.all[0].title).to eq('Changed')
     end
   end
 end
