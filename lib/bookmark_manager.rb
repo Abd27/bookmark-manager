@@ -22,5 +22,9 @@ class BookmarkManager
     # connect_to_database
     @connection.exec("INSERT INTO bookmarks (title,url) VALUES('#{title}', '#{url}')")
   end  
+
+  def self.delete(id)
+    @connection.exec("DELETE FROM bookmarks WHERE id = #{id}")
+  end  
   
 end

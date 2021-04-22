@@ -26,4 +26,14 @@ describe BookmarkManager do
       expect(BookmarkManager.all.first.title).to eq('Github')
     end
   end
+
+  describe '.delete' do
+    it 'deletes bookmark' do
+      BookmarkManager.all
+      BookmarkManager.save_bookmark('New URL', 'http://bookmarked-url.co.gb')
+      id = described_class.all[0].id
+      BookmarkManager.delete(id)
+      expect(BookmarkManager.all).to be_empty
+    end
+  end
 end
